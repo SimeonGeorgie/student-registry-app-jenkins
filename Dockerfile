@@ -7,8 +7,13 @@ WORKDIR /app
 # Copy package.json and package-lock.json files into the container at /app
 COPY package*.json ./
 
-# Install dependencies in the container
-RUN npm install
+# Retry npm install up to 5 times with a delay
+RUN set -eux; \
+    for i in $(seq 1 5); do \
+      npm install && break || \
+      echo "Retrying npm install ($i/5)..." && \
+      sleep 5; \
+    done
 
 # Copy the rest of your app's source code from your host to your image filesystem.
 COPY . .
@@ -18,3 +23,4 @@ EXPOSE 3030
 
 # Define the command to run your app using CMD which defines your runtime
 CMD [ "npm", "start" ]
+# minor change
