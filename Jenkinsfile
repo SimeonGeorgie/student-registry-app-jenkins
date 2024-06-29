@@ -2,19 +2,16 @@ pipeline {
     agent any
 
     environment {
-        NODEJS_VERSION = '14.0.0' // Specify the Node.js version you want to use
+        nodejs = 'nodejs14.0.0' // Specify the Node.js version you want to use
     }
 
     stages {
         stage('Setup Node.js') {
             steps {
+                // NodeJS tool setup
                 script {
-                    // Install Node.js
-                    sh '''
-                    # Install Node.js
-                    curl -sL https://deb.nodesource.com/setup_$NODEJS_VERSION | sudo -E bash -
-                    sudo apt-get install -y nodejs
-                    '''
+                    def nodeHome = tool name: 'nodejs14.0.0', type: 'NodeJSInstallation'
+                    env.PATH = "${nodeHome}/bin:${env.PATH}"
                 }
             }
         }
