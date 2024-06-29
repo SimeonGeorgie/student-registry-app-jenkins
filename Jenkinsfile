@@ -19,15 +19,13 @@ pipeline {
   */  
         stage('Checkout code') {
             steps {
-                nodejs(nodeJSInstallationName: 'nodejs14.0.0') 
                 // Get some code from a GitHub repository
                 git branch: 'test-pipeline', url: 'https://github.com/SimeonGeorgie/student-registry-app-jenkins'
         }
         }
         stage('Install Dependencies') {
             steps {
-                script {
-                    nodejs(nodeJSInstallationName: 'nodejs14.0.0') 
+                nodejs(nodeJSInstallationName: 'nodejs14.0.0')  {
                     // Install project dependencies
                     sh 'npm install'
                 }
@@ -36,8 +34,7 @@ pipeline {
 
         stage('Start Application') {
             steps {
-                script {
-                    nodejs(nodeJSInstallationName: 'nodejs14.0.0') 
+                nodejs(nodeJSInstallationName: 'nodejs14.0.0') {
                     // Start the application in the background
                     sh 'nohup npm start &'
                 }
@@ -46,7 +43,7 @@ pipeline {
 
         stage('Test application') {
             steps {
-                script {
+                nodejs(nodeJSInstallationName: 'nodejs14.0.0') {
                     // Run the tests
                     sh 'npm test'
                 }
