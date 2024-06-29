@@ -10,7 +10,7 @@ pipeline {
             steps {
                 // NodeJS tool setup
                 script {
-                    def nodeHome = tool name: 'nodejs14.0.0', type: 'NodeJSInstallation'
+                    def nodeHome = tool name: 'NodeJS 14.0.0', type: 'NodeJSInstallation'
                     env.PATH = "${nodeHome}/bin:${env.PATH}"
                 }
             }
