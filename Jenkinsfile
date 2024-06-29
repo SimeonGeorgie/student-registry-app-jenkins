@@ -24,7 +24,7 @@ pipeline {
                 // Get some code from a GitHub repository
                 git branch: 'test-pipeline', url: 'https://github.com/SimeonGeorgie/student-registry-app-jenkins'
         }
-
+        }
         stage('Install Dependencies') {
             steps {
                 script {
